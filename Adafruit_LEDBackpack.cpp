@@ -51,6 +51,8 @@
   } ///< 16-bit var swap
 #endif
 
+uint8_t colonValue;
+
 static const PROGMEM uint8_t sevensegfonttable[] = {
 
     0b00000000, // (space)
@@ -568,7 +570,7 @@ void Adafruit_BicolorMatrix::drawPixel(int16_t x, int16_t y, uint16_t color) {
 
 /******************************* 7 SEGMENT OBJECT */
 
-Adafruit_7segment::Adafruit_7segment(void) { position = 0; }
+Adafruit_7segment::Adafruit_7segment(void) { position = 0; colonValue = 2; }
 
 void Adafruit_7segment::print(const String &c) { write(c.c_str(), c.length()); }
 
@@ -687,7 +689,7 @@ void Adafruit_7segment::writeDigitRaw(uint8_t d, uint8_t bitmask) {
 
 void Adafruit_7segment::drawColon(bool state) {
   if (state)
-    displaybuffer[2] = 0x2;
+    displaybuffer[2] = colonValue;
   else
     displaybuffer[2] = 0;
 }
@@ -811,4 +813,15 @@ void Adafruit_7segment::printError(void) {
   for (uint8_t i = 0; i < SEVENSEG_DIGITS; ++i) {
     writeDigitRaw(i, (i == 2 ? 0x00 : 0x40));
   }
+}
+
+
+void Adafruit_7segment::setColon(uint8_t value){
+	if(value>127)value = 127;
+	colonValue = value;
+}
+
+
+uint8_t Adafruit_7segment::getColon(void){
+	return colonValue;
 }

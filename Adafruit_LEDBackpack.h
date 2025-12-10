@@ -455,6 +455,20 @@ public:
     @brief  Issue colon-on directly to display (bypass buffer).
   */
   void writeColon(void);
+  
+  /*!
+    @brief  Set custom value for colon segment.
+    @param  8 bit value corresponding to the 7 possible segments.
+			max value 127.
+  */
+  
+  void setColon(uint8_t value);
+  
+  /*!
+    @brief  Returns the current value being used for the colon.
+  */
+  uint8_t getColon(void);
+  
 
 private:
   uint8_t position; ///< Current print position, 0-3
