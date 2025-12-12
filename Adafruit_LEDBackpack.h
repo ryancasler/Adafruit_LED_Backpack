@@ -472,6 +472,8 @@ public:
 
 private:
   uint8_t position; ///< Current print position, 0-3
+  
+  uint8_t colonValue;
 };
 
 /*!
